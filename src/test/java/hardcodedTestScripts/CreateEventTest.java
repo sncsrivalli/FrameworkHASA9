@@ -1,6 +1,9 @@
 package hardcodedTestScripts;
 
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 import java.util.Random;
 
 import org.openqa.selenium.By;
@@ -46,9 +49,44 @@ public class CreateEventTest {
 		
 		String subject = "Event"+randomNum;
 		driver.findElement(By.name("subject")).sendKeys(subject);
-//		driver.findElement(By.id("jscal_trigger_date_start")).click();
-//		
-//		driver.findElement(By.id("jscal_trigger_due_date")).click();
+		driver.findElement(By.id("jscal_trigger_date_start")).click();
+		//Fetching month
+		String currentMonthYear = driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[@class='title']")).getText();
+		
+		String[] str = currentMonthYear.split(",");
+		
+		int currentMonthInNum = DateTimeFormatter.ofPattern("MMMM").withLocale(Locale.ENGLISH).parse(str[0]).get(ChronoField.MONTH_OF_YEAR);
+		int currentYearInNum = Integer.parseInt(str[1].trim());
+		int requiredYear = 2025;
+		int requiredMonth = 10;
+		int requiredDate = 18;
+		
+		while(currentYearInNum < requiredYear) {
+			driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[.='»']")).click();
+			currentMonthYear = driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[@class='title']")).getText();
+			str = currentMonthYear.split(",");
+			currentMonthInNum = DateTimeFormatter.ofPattern("MMMM").withLocale(Locale.ENGLISH).parse(str[0]).get(ChronoField.MONTH_OF_YEAR);
+			currentYearInNum = Integer.parseInt(str[1].trim());
+			
+			if(currentYearInNum == requiredYear) {
+				while(currentMonthInNum < requiredMonth) {
+					driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[.='›']")).click();
+					currentMonthYear = driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[@class='title']")).getText();
+					str = currentMonthYear.split(",");
+					currentMonthInNum = DateTimeFormatter.ofPattern("MMMM").withLocale(Locale.ENGLISH).parse(str[0]).get(ChronoField.MONTH_OF_YEAR);
+				}
+				while(currentMonthInNum > requiredMonth) {
+					driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[.='‹']")).click();
+					currentMonthYear = driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[@class='title']")).getText();
+					str = currentMonthYear.split(",");
+					currentMonthInNum = DateTimeFormatter.ofPattern("MMMM").withLocale(Locale.ENGLISH).parse(str[0]).get(ChronoField.MONTH_OF_YEAR);
+				}
+			}
+		}
+		
+		driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[.='"+requiredDate+"']")).click();
+		
+		driver.findElement(By.id("jscal_trigger_due_date")).click();
 		
 
 	}
