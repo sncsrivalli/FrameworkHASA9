@@ -1,6 +1,8 @@
 package genericUtilityImplementation;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,10 +14,9 @@ import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
 import genericLibraries.WebDriverUtility;
 
-public class CreateOrganizationTest {
+public class CreateContactWithOrgTest {
 
 	public static void main(String[] args) {
-		
 		ExcelUtility excel = new ExcelUtility();
 		PropertiesFileUtility property = new PropertiesFileUtility();
 		JavaUtility javaUtil = new JavaUtility();
@@ -23,9 +24,10 @@ public class CreateOrganizationTest {
 
 		property.propertyFileInitialization(IConstantPath.PROPERTY_FILE_PATH);
 		excel.excelInitialization(IConstantPath.EXCEL_FILE_PATH);
-		
+
 		long time = Long.parseLong(property.fetchProperty("timeouts"));
 		WebDriver driver = web.openApplication(property.fetchProperty("browser"), property.fetchProperty("url"), time);
+
 		if(driver.getTitle().contains("vtiger"))
 			System.out.println("Login page displayed");
 		else
@@ -40,47 +42,63 @@ public class CreateOrganizationTest {
 		else
 			System.out.println("Home page not found");
 		
-		driver.findElement(By.xpath("//a[text()='Organizations']")).click();
-		if(driver.getTitle().contains("Organizations"))
-			System.out.println("Organizations page displayed");
+		driver.findElement(By.xpath("//a[text()='Contacts']")).click();
+		if(driver.getTitle().contains("Contacts"))
+			System.out.println("Contacts page displayed");
 		else
-			System.out.println("Organizations page not found");
+			System.out.println("Contacts page not found");
 		
-		driver.findElement(By.xpath("//img[@title='Create Organization...']")).click();
+		driver.findElement(By.xpath("//img[@title='Create Contact...']")).click();
 		String createOrgPageHeader = driver.findElement(By.xpath("//span[@class='lvtHeaderText']")).getText();
 		if(createOrgPageHeader.contains("Creating"))
 			System.out.println("Creating new organization page displayed");
 		else
 			System.out.println("Creating new organization page not displayed");
 
-		Map<String,String> map = excel.readDataFromExcel("Create Organization", "OrganizationsTestData");
-		String orgName = map.get("Organization Name")+javaUtil.generateRandomNumber(100);
-		driver.findElement(By.name("accountname")).sendKeys(orgName);
+		Map<String, String> map = excel.readDataFromExcel("Create Contact With Organization", "ContactsTestData");
+		String contactName = map.get("Last Name")+javaUtil.generateRandomNumber(100);
+		driver.findElement(By.name("lastname")).sendKeys(contactName);
+		
+		driver.findElement(By.xpath("//img[contains(@onclick,'Accounts&action')]")).click();
+		String parentID = driver.getWindowHandle();
+		Set<String> windowIDs = driver.getWindowHandles();
+		
+		for(String wID: windowIDs) {
+			driver.switchTo().window(wID);
+		}
+		List<WebElement> orgList = driver.findElements(By.xpath("//form[@name='selectall']/descendant::tr[contains(@onmouseout,'lvtColData')]/td[1]/a"));
+		for(WebElement org: orgList) {
+			if(org.getText().equals(map.get("Organization Name"))) {
+				org.click();
+				break;
+			}
+		}
+		driver.switchTo().window(parentID);
+		
 		driver.findElement(By.xpath("//input[contains(@value,'Save')]")).click();
 		
-		String newOrgInfoHeader = driver.findElement(By.xpath("//span[@class='dvHeaderText']")).getText();
-		if(newOrgInfoHeader.contains(orgName))
-			System.out.println("New organization created");
+		String newContactInfoHeader = driver.findElement(By.xpath("//span[@class='dvHeaderText']")).getText();
+		if(newContactInfoHeader.contains(contactName))
+			System.out.println("New contact created");
 		else
-			System.out.println("New organization not created");
+			System.out.println("New contact not created");
 		
 		driver.findElement(By.xpath("//a[@class='hdrLink']")).click();
-		String newOrg = driver.findElement(By.xpath("//table[@class='lvt small']/descendant::tr[last()]/td[3]/a")).getText();
-		if(newOrg.equals(orgName)) {
+		String newContact = driver.findElement(By.xpath("//table[@class='lvt small']/descendant::tr[last()]/td[4]/a")).getText();
+		if(newContact.equals(contactName)) {
 			System.out.println("Test Pass");
-			excel.setDataToExcel("Create Organization", "Pass", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
+			excel.setDataToExcel("Create Contact With Organization", "Pass", IConstantPath.EXCEL_FILE_PATH, "ContactsTestData");
 		}
 		else {
 			System.out.println("Test Fail");
-			excel.setDataToExcel("Create Organization", "Fail", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
+			excel.setDataToExcel("Create Contact With Organization", "Fail", IConstantPath.EXCEL_FILE_PATH, "ContactsTestData");
 		}
+
 		
 		WebElement administratorIcon = driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']"));
-
 		web.mouseHover(administratorIcon);
-		
-		driver.findElement(By.xpath("//a[text()='Sign Out']")).click();
 
+		driver.findElement(By.xpath("//a[text()='Sign Out']")).click();
 		web.closeWindows();
 		excel.closeWorkbook();
 	}

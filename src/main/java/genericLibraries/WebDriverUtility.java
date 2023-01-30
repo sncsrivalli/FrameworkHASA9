@@ -188,6 +188,14 @@ public class WebDriverUtility {
 	}
 	
 	/**
+	 * This method is used to switch to given window using window id
+	 * @param id
+	 */
+	public void switchToWindow(String id) {
+		driver.switchTo().window(id);
+	}
+	
+	/**
 	 * This method is used to switch to frame based on index
 	 * @param index
 	 */

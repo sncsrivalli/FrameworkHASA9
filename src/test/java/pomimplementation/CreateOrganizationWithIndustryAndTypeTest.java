@@ -1,21 +1,23 @@
-package genericUtilityImplementation;
+package pomimplementation;
 
 import java.util.Map;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import genericLibraries.ExcelUtility;
 import genericLibraries.IConstantPath;
 import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
 import genericLibraries.WebDriverUtility;
+import pompages.CreateOrganizationPage;
+import pompages.HomePage;
+import pompages.LoginPage;
+import pompages.NewOrganizationInfoPage;
+import pompages.OrganizationsPage;
 
-public class CreateOrganizationTest {
+public class CreateOrganizationWithIndustryAndTypeTest {
 
 	public static void main(String[] args) {
-		
 		ExcelUtility excel = new ExcelUtility();
 		PropertiesFileUtility property = new PropertiesFileUtility();
 		JavaUtility javaUtil = new JavaUtility();
@@ -26,61 +28,64 @@ public class CreateOrganizationTest {
 		
 		long time = Long.parseLong(property.fetchProperty("timeouts"));
 		WebDriver driver = web.openApplication(property.fetchProperty("browser"), property.fetchProperty("url"), time);
+		
+		LoginPage login = new LoginPage(driver);
+		HomePage home = new HomePage(driver);
+		OrganizationsPage organizations = new OrganizationsPage(driver);
+		CreateOrganizationPage createOrganization = new CreateOrganizationPage(driver);
+		NewOrganizationInfoPage newOrganization = new NewOrganizationInfoPage(driver);
+		
 		if(driver.getTitle().contains("vtiger"))
 			System.out.println("Login page displayed");
 		else
 			System.out.println("Login page not found");
 		
-		driver.findElement(By.name("user_name")).sendKeys(property.fetchProperty("username"));
-		driver.findElement(By.name("user_password")).sendKeys(property.fetchProperty("password"));
-		driver.findElement(By.id("submitButton")).submit();
+		login.loginToApp(property.fetchProperty("username"), property.fetchProperty("password"));
 		
 		if(driver.getTitle().contains("Home"))
 			System.out.println("Home page is displayed");
 		else
 			System.out.println("Home page not found");
 		
-		driver.findElement(By.xpath("//a[text()='Organizations']")).click();
+		home.clickOrganization();
+		
 		if(driver.getTitle().contains("Organizations"))
 			System.out.println("Organizations page displayed");
 		else
 			System.out.println("Organizations page not found");
 		
-		driver.findElement(By.xpath("//img[@title='Create Organization...']")).click();
-		String createOrgPageHeader = driver.findElement(By.xpath("//span[@class='lvtHeaderText']")).getText();
-		if(createOrgPageHeader.contains("Creating"))
+		organizations.clickPlusButton();
+		
+		if(createOrganization.getPageHeader().contains("Creating"))
 			System.out.println("Creating new organization page displayed");
 		else
 			System.out.println("Creating new organization page not displayed");
-
-		Map<String,String> map = excel.readDataFromExcel("Create Organization", "OrganizationsTestData");
-		String orgName = map.get("Organization Name")+javaUtil.generateRandomNumber(100);
-		driver.findElement(By.name("accountname")).sendKeys(orgName);
-		driver.findElement(By.xpath("//input[contains(@value,'Save')]")).click();
 		
-		String newOrgInfoHeader = driver.findElement(By.xpath("//span[@class='dvHeaderText']")).getText();
-		if(newOrgInfoHeader.contains(orgName))
+		Map<String,String> map = excel.readDataFromExcel("Create Organization With Industry And Type", "OrganizationsTestData");
+		
+		String orgName = map.get("Organization Name")+javaUtil.generateRandomNumber(100);
+		createOrganization.setOrganizationName(orgName);
+		createOrganization.selectIndustry(web, map.get("Industry"));
+		createOrganization.selectType(web, map.get("Type"));
+		createOrganization.clickSaveButton();
+			
+		if(newOrganization.getPageHeader().contains(orgName))
 			System.out.println("New organization created");
 		else
 			System.out.println("New organization not created");
 		
-		driver.findElement(By.xpath("//a[@class='hdrLink']")).click();
-		String newOrg = driver.findElement(By.xpath("//table[@class='lvt small']/descendant::tr[last()]/td[3]/a")).getText();
-		if(newOrg.equals(orgName)) {
+		newOrganization.clickOrganizationsLink();
+		
+		if(organizations.getNewOrganization().equals(orgName)) {
 			System.out.println("Test Pass");
-			excel.setDataToExcel("Create Organization", "Pass", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
+			excel.setDataToExcel("Create Organization With Industry And Type", "Pass", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
 		}
 		else {
 			System.out.println("Test Fail");
-			excel.setDataToExcel("Create Organization", "Fail", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
+			excel.setDataToExcel("Create Organization With Industry And Type", "Fail", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
 		}
 		
-		WebElement administratorIcon = driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']"));
-
-		web.mouseHover(administratorIcon);
-		
-		driver.findElement(By.xpath("//a[text()='Sign Out']")).click();
-
+		home.signOutOfApp(web);
 		web.closeWindows();
 		excel.closeWorkbook();
 	}

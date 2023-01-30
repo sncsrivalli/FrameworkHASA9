@@ -7,23 +7,23 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * This class contains all the elements, locators and respective business
- * libraries of New Organizations Info page
+ * libraries of New Contact Info page
  * 
  * @author QPS-Basavanagudi
  *
  */
-public class NewOrganizationInfoPage {
+public class NewContactInfoPage {
 
 	// Declaration
 	@FindBy(xpath = "//span[@class='dvHeaderText']")
 	private WebElement pageHeader;
 	@FindBy(xpath = "//a[@class='hdrLink']")
-	private WebElement organizationsLink;
+	private WebElement contactsLink;
 
 	// Initialization
-	public NewOrganizationInfoPage(WebDriver driver) {
-		PageFactory.initElements(driver, this);
-	}
+	public NewContactInfoPage(WebDriver driver) {
+			PageFactory.initElements(driver, this);
+		}
 
 	// Utilization
 	/**
@@ -38,8 +38,8 @@ public class NewOrganizationInfoPage {
 	/**
 	 * This method is used to click on organizations link
 	 */
-	public void clickOrganizationsLink() {
-		organizationsLink.click();
+	public void clickContactsLink() {
+		contactsLink.click();
 	}
 
 }

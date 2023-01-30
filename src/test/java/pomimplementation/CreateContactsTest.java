@@ -9,16 +9,15 @@ import genericLibraries.IConstantPath;
 import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
 import genericLibraries.WebDriverUtility;
-import pompages.CreateOrganizationPage;
+import pompages.ContactsPage;
+import pompages.CreateContactPage;
 import pompages.HomePage;
 import pompages.LoginPage;
-import pompages.NewOrganizationInfoPage;
-import pompages.OrganizationsPage;
+import pompages.NewContactInfoPage;
 
-public class CreateOrganizationTest {
+public class CreateContactsTest {
 
 	public static void main(String[] args) {
-		
 		ExcelUtility excel = new ExcelUtility();
 		PropertiesFileUtility property = new PropertiesFileUtility();
 		JavaUtility javaUtil = new JavaUtility();
@@ -26,65 +25,64 @@ public class CreateOrganizationTest {
 
 		property.propertyFileInitialization(IConstantPath.PROPERTY_FILE_PATH);
 		excel.excelInitialization(IConstantPath.EXCEL_FILE_PATH);
-		
+
 		long time = Long.parseLong(property.fetchProperty("timeouts"));
 		WebDriver driver = web.openApplication(property.fetchProperty("browser"), property.fetchProperty("url"), time);
-		
+
+
 		LoginPage login = new LoginPage(driver);
 		HomePage home = new HomePage(driver);
-		OrganizationsPage organizations = new OrganizationsPage(driver);
-		CreateOrganizationPage createOrganization = new CreateOrganizationPage(driver);
-		NewOrganizationInfoPage newOrganization = new NewOrganizationInfoPage(driver);
+		ContactsPage contacts = new ContactsPage(driver);
+		CreateContactPage createContact = new CreateContactPage(driver);
+		NewContactInfoPage newContact = new NewContactInfoPage(driver);
 		
-		if(driver.getTitle().contains("vtiger"))
+		if (driver.getTitle().contains("vtiger"))
 			System.out.println("Login page displayed");
 		else
 			System.out.println("Login page not found");
-		
+
 		login.loginToApp(property.fetchProperty("username"), property.fetchProperty("password"));
 		
-		if(driver.getTitle().contains("Home"))
+		if (driver.getTitle().contains("Home"))
 			System.out.println("Home page is displayed");
 		else
 			System.out.println("Home page not found");
+
+		home.clickContact();
 		
-		home.clickOrganization();
-		
-		if(driver.getTitle().contains("Organizations"))
-			System.out.println("Organizations page displayed");
+		if (driver.getTitle().contains("Contacts"))
+			System.out.println("Contacts page displayed");
 		else
-			System.out.println("Organizations page not found");
+			System.out.println("Contacts page not found");
+
+		contacts.clickPlusButton();
 		
-		organizations.clickPlusButton();
-		
-		if(createOrganization.getPageHeader().contains("Creating"))
+		if (createContact.getPageHeader().contains("Creating"))
 			System.out.println("Creating new organization page displayed");
 		else
 			System.out.println("Creating new organization page not displayed");
 
-		Map<String,String> map = excel.readDataFromExcel("Create Organization", "OrganizationsTestData");
-		String orgName = map.get("Organization Name")+javaUtil.generateRandomNumber(100);
-		createOrganization.setOrganizationName(orgName);
-		createOrganization.clickSaveButton();
+		Map<String, String> map = excel.readDataFromExcel("Create Contact", "ContactsTestData");
+		String contactName = map.get("Last Name") + javaUtil.generateRandomNumber(100);
+		createContact.setContactName(contactName);
+		createContact.clickSaveButton();
 		
-		if(newOrganization.getPageHeader().contains(orgName))
-			System.out.println("New organization created");
+		if (newContact.getPageHeader().contains(contactName))
+			System.out.println("New contact created");
 		else
-			System.out.println("New organization not created");
+			System.out.println("New contact not created");
+
+		newContact.clickContactsLink();
 		
-		newOrganization.clickOrganizationsLink();
-		
-		if(organizations.getNewOrganization().equals(orgName)) {
+		if (contacts.getNewContact().equals(contactName)) {
 			System.out.println("Test Pass");
-			excel.setDataToExcel("Create Organization", "Pass", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
-		}
-		else {
+			excel.setDataToExcel("Create Contact", "Pass", IConstantPath.EXCEL_FILE_PATH, "ContactsTestData");
+		} else {
 			System.out.println("Test Fail");
-			excel.setDataToExcel("Create Organization", "Fail", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
+			excel.setDataToExcel("Create Contact", "Fail", IConstantPath.EXCEL_FILE_PATH, "ContactsTestData");
 		}
-		
+
 		home.signOutOfApp(web);
-		
 		web.closeWindows();
 		excel.closeWorkbook();
 	}

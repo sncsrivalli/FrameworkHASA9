@@ -1,39 +1,40 @@
-package hardcodedTestScripts;
+package pomimplementation;
 
-import java.time.Duration;
-import java.util.Random;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 
-
+import genericLibraries.ExcelUtility;
+import genericLibraries.IConstantPath;
+import genericLibraries.JavaUtility;
+import genericLibraries.PropertiesFileUtility;
+import genericLibraries.WebDriverUtility;
 
 public class CreateAndDuplicateLeadTest {
 
 	public static void main(String[] args) {
-		Random random = new Random();
-		int randomNum = random.nextInt(100);
-		
-		
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("http://localhost:8888/");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		
-		String title = driver.findElement(By.xpath("//a[@href='http://www.vtiger.com']")).getText();
-		
-		if(title.contains("vtiger"))
-			System.out.println("Login Page Displayed");
+		ExcelUtility excel = new ExcelUtility();
+		PropertiesFileUtility property = new PropertiesFileUtility();
+		JavaUtility javaUtil = new JavaUtility();
+		WebDriverUtility web = new WebDriverUtility();
+
+		property.propertyFileInitialization(IConstantPath.PROPERTY_FILE_PATH);
+		excel.excelInitialization(IConstantPath.EXCEL_FILE_PATH);
+
+		long time = Long.parseLong(property.fetchProperty("timeouts"));
+		WebDriver driver = web.openApplication(property.fetchProperty("browser"), property.fetchProperty("url"), time);
+
+		if(driver.getTitle().contains("vtiger"))
+			System.out.println("Login page displayed");
 		else
-			System.out.println("Login Page is not Displayed");
+			System.out.println("Login page not found");
 		
-		driver.findElement(By.name("user_name")).sendKeys("admin");
-		driver.findElement(By.name("user_password")).sendKeys("admin");
-		driver.findElement(By.id("submitButton")).click();
+		driver.findElement(By.name("user_name")).sendKeys(property.fetchProperty("username"));
+		driver.findElement(By.name("user_password")).sendKeys(property.fetchProperty("password"));
+		driver.findElement(By.id("submitButton")).submit();
+		
 		
 		String homePageText = driver.findElement(By.xpath("//a[@class='hdrLink']")).getText();
 		if(homePageText.contains("Home"))
@@ -57,14 +58,12 @@ public class CreateAndDuplicateLeadTest {
 		else
 			System.out.println("Fail");
 		
-
+		Map<String, String> map = excel.readDataFromExcel("Create and Duplicate Lead", "LeadsTestData");
 		WebElement salutationDropdown = driver.findElement(By.name("salutationtype"));
-		Select salutation = new Select(salutationDropdown);
-		salutation.selectByValue("Mrs.");
-		
-		String leadName = "A"+randomNum;
+		web.dropdown(map.get("First Name Salutation"), salutationDropdown);
+		String leadName = map.get("Last Name")+javaUtil.generateRandomNumber(100);
 		driver.findElement(By.name("lastname")).sendKeys(leadName);
-		driver.findElement(By.name("company")).sendKeys("B1");
+		driver.findElement(By.name("company")).sendKeys(map.get("Company"));
 		driver.findElement(By.xpath("//input[contains(@value,'Save')]")).click();
 		
 		String newLeadInfo = driver.findElement(By.xpath("//span[@class='dvHeaderText']")).getText();
@@ -79,7 +78,7 @@ public class CreateAndDuplicateLeadTest {
 			System.out.println("Pass");
 		else
 			System.out.println("Fail");
-		String duplicateLeadName = "Pqr"+randomNum;
+		String duplicateLeadName = map.get("New Last Name")+javaUtil.generateRandomNumber(100);
 		WebElement lastName = driver.findElement(By.name("lastname"));
 		lastName.clear();
 		lastName.sendKeys(duplicateLeadName);
@@ -87,17 +86,23 @@ public class CreateAndDuplicateLeadTest {
 		driver.findElement(By.xpath("//a[@class='hdrLink']")).click();
 		
 		String newLead = driver.findElement(By.xpath("//table[@class='lvt small']/descendant::tr[last()]/td[3]/a")).getText();
-		if(newLead.equals(duplicateLeadName))
+		if(newLead.equals(duplicateLeadName)) {
 			System.out.println("Pass");
-		else
+			excel.setDataToExcel("Create and Duplicate Lead", "Pass", IConstantPath.EXCEL_FILE_PATH, "LeadsTestData");
+		}
+
+		else {
 			System.out.println("Fail");
+			excel.setDataToExcel("Create and Duplicate Lead", "Fail", IConstantPath.EXCEL_FILE_PATH, "LeadsTestData");
+		}
+
 		
 
 		WebElement administratorIcon = driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']"));
-		Actions a = new Actions(driver);
-		a.moveToElement(administratorIcon).perform();
-		
-		driver.findElement(By.xpath("//a[.='Sign Out']")).click();
-		driver.quit();
+		web.mouseHover(administratorIcon);
+
+		driver.findElement(By.xpath("//a[text()='Sign Out']")).click();
+		web.closeWindows();
+		excel.closeWorkbook();
 	}
 }

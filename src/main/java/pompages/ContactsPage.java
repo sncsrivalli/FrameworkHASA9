@@ -6,22 +6,20 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
- * This class contains all the elements, locators and respective business
- * libraries of Organizations page
- * 
+ * This class contains all the elements, locators and respective business libraries of Contacts page
  * @author QPS-Basavanagudi
  *
  */
-public class OrganizationsPage {
+public class ContactsPage {
 
 	// Declaration
-	@FindBy(xpath = "//img[@title='Create Organization...']")
+	@FindBy(xpath = "//img[@title='Create Contact...']")
 	private WebElement plusButton;
-	@FindBy(xpath = "//table[@class='lvt small']/descendant::tr[last()]/td[3]/a")
-	private WebElement newOrganization;
+	@FindBy(xpath = "//table[@class='lvt small']/descendant::tr[last()]/td[4]/a")
+	private WebElement newContact;
 
 	// Initialization
-	public OrganizationsPage(WebDriver driver) {
+	public ContactsPage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 
@@ -38,7 +36,8 @@ public class OrganizationsPage {
 	 * 
 	 * @return
 	 */
-	public String getNewOrganization() {
-		return newOrganization.getText();
+	public String getNewContact() {
+		return newContact.getText();
 	}
+
 }

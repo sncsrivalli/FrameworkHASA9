@@ -1,5 +1,7 @@
 package pompages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,27 +11,27 @@ import genericLibraries.WebDriverUtility;
 
 /**
  * This class contains all the elements, locators and respective business
- * libraries of Create Organizations page
+ * libraries of Create Contact page
  * 
  * @author QPS-Basavanagudi
  *
  */
-public class CreateOrganizationPage {
+public class CreateContactPage {
 
 	// Declaration
 	@FindBy(xpath = "//span[@class='lvtHeaderText']")
 	private WebElement pageHeader;
-	@FindBy(name = "accountname")
-	private WebElement organizationNameTF;
-	@FindBy(name = "industry")
-	private WebElement industryDropdown;
-	@FindBy(name = "accounttype")
-	private WebElement typeDropdown;
+	@FindBy(name = "lastname")
+	private WebElement contactNameTF;
+	@FindBy(xpath = "//img[contains(@onclick,'Accounts&action')]")
+	private WebElement organizationPlusButton;
+	@FindBy(xpath = "//form[@name='selectall']/descendant::tr[contains(@onmouseout,'lvtColData')]/td[1]/a")
+	private List<WebElement> organizationsList;
 	@FindBy(xpath = "//input[contains(@value,'Save')]")
 	private WebElement saveButton;
 
 	// Initialization
-	public CreateOrganizationPage(WebDriver driver) {
+	public CreateContactPage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 
@@ -49,28 +51,27 @@ public class CreateOrganizationPage {
 	 * 
 	 * @param name
 	 */
-	public void setOrganizationName(String name) {
-		organizationNameTF.sendKeys(name);
+	public void setContactName(String name) {
+		contactNameTF.sendKeys(name);
 	}
-
+	
 	/**
-	 * This method is used to choose the industry from industry drop down
-	 * 
+	 * This method is used to select required organization from the existing organizations list
 	 * @param web
-	 * @param value
+	 * @param orgName
 	 */
-	public void selectIndustry(WebDriverUtility web, String value) {
-		web.dropdown(value, industryDropdown);
-	}
-
-	/**
-	 * This method is used to choose the investor type from type drop down
-	 * 
-	 * @param web
-	 * @param value
-	 */
-	public void selectType(WebDriverUtility web, String value) {
-		web.dropdown(value, typeDropdown);
+	public void selectExistingOrganization(WebDriverUtility web, String orgName) {
+		organizationPlusButton.click();
+		String parentID = web.getParentWindowID();
+		web.childBrowserPopup();
+				
+		for(WebElement org: organizationsList) {
+			if(org.getText().equals(orgName)) {
+				org.click();
+				break;
+			}
+		}
+		web.switchToWindow(parentID);
 	}
 
 	/**
