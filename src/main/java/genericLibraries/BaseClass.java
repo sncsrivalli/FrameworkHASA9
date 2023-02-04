@@ -24,6 +24,8 @@ public class BaseClass {
 	protected ContactsPage contacts;
 	protected CreateContactPage createContact;
 	protected NewContactInfoPage newContact;
+	public static JavaUtility sjavaUtil;
+	public static WebDriver sdriver;
 	
 	//@BeforeSuite
 	//@BeforeTest
@@ -33,6 +35,7 @@ public class BaseClass {
 		excel = new ExcelUtility();
 		property = new PropertiesFileUtility();
 		javaUtil = new JavaUtility();
+		sjavaUtil = javaUtil;
 		web = new WebDriverUtility();
 
 		property.propertyFileInitialization(IConstantPath.PROPERTY_FILE_PATH);
@@ -43,6 +46,7 @@ public class BaseClass {
 	public void methodSetup() {
 		long time = Long.parseLong(property.fetchProperty("timeouts"));
 		driver = web.openApplication(property.fetchProperty("browser"), property.fetchProperty("url"), time);
+		sdriver = driver;
 		Assert.assertTrue(driver.getTitle().contains("vtiger"));
 
 		login = new LoginPage(driver);
