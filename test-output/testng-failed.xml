@@ -8,8 +8,8 @@
           <include name="methodSetup"/>
           <include name="classSetup"/>
           <include name="createContactTest"/>
-          <include name="classTeardown"/>
           <include name="methodTeardown"/>
+          <include name="classTeardown"/>
         </methods>
       </class> <!-- testngImplementation.CreateContactsTest -->
     </classes>

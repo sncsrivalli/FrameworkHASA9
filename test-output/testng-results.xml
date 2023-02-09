@@ -1,29 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-02-09T17:07:05 IST" name="Default suite" finished-at="2023-02-09T17:08:23 IST" duration-ms="77702">
+  <suite started-at="2023-02-09T17:45:50 IST" name="Default suite" finished-at="2023-02-09T17:46:26 IST" duration-ms="35898">
     <groups>
     </groups>
-    <test started-at="2023-02-09T17:07:05 IST" name="Default test" finished-at="2023-02-09T17:08:23 IST" duration-ms="77702">
+    <test started-at="2023-02-09T17:45:50 IST" name="Default test" finished-at="2023-02-09T17:46:26 IST" duration-ms="35898">
       <class name="testngImplementation.CreateContactsTest">
-        <test-method is-config="true" signature="classSetup()[pri:0, instance:testngImplementation.CreateContactsTest@60099951]" started-at="2023-02-09T17:07:05 IST" name="classSetup" finished-at="2023-02-09T17:07:06 IST" duration-ms="807" status="PASS">
+        <test-method is-config="true" signature="classSetup()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:45:50 IST" name="classSetup" finished-at="2023-02-09T17:45:51 IST" duration-ms="1321" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classSetup -->
-        <test-method is-config="true" signature="methodSetup()[pri:0, instance:testngImplementation.CreateContactsTest@60099951]" started-at="2023-02-09T17:07:06 IST" name="methodSetup" finished-at="2023-02-09T17:07:45 IST" duration-ms="38937" status="PASS">
+        <test-method is-config="true" signature="methodSetup()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:45:51 IST" name="methodSetup" finished-at="2023-02-09T17:46:02 IST" duration-ms="10389" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodSetup -->
-        <test-method signature="createContactTest()[pri:0, instance:testngImplementation.CreateContactsTest@60099951]" started-at="2023-02-09T17:07:45 IST" name="createContactTest" finished-at="2023-02-09T17:08:20 IST" duration-ms="34505" status="PASS">
+        <test-method signature="createContactTest()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:02 IST" name="createContactTest" finished-at="2023-02-09T17:46:23 IST" duration-ms="21114" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+expected [true] but found [false]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
+at testngImplementation.CreateContactsTest.createContactTest(CreateContactsTest.java:36)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:794)
+at org.testng.TestRunner.run(TestRunner.java:596)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- createContactTest -->
-        <test-method is-config="true" signature="methodTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@60099951]" started-at="2023-02-09T17:08:20 IST" name="methodTeardown" finished-at="2023-02-09T17:08:23 IST" duration-ms="3395" status="PASS">
+        <test-method is-config="true" signature="methodTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:23 IST" name="methodTeardown" finished-at="2023-02-09T17:46:26 IST" duration-ms="3000" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodTeardown -->
-        <test-method is-config="true" signature="classTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@60099951]" started-at="2023-02-09T17:08:23 IST" name="classTeardown" finished-at="2023-02-09T17:08:23 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="classTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:26 IST" name="classTeardown" finished-at="2023-02-09T17:46:26 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classTeardown -->
