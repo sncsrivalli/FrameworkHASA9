@@ -18,7 +18,7 @@ public class CreateContactsTest extends BaseClass {
 		
 		soft.assertTrue(driver.getTitle().contains("Contacts"));
 		contacts.clickPlusButton();
-		soft.assertTrue(createContact.getPageHeader().contains("Creating"));
+		soft.assertTrue(createContact.getPageHeader().contains("Create"));
 		
 		Map<String, String> map = excel.readDataFromExcel("Create Contact", "ContactsTestData");
 		String contactName = map.get("Last Name") + javaUtil.generateRandomNumber(100);
