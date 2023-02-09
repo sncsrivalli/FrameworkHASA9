@@ -124,7 +124,7 @@ public class ExcelUtility {
 		Sheet sheet = workbook.getSheet(sheetName);
 		for(int i=0; i< sheet.getLastRowNum();i++) {
 			if(df.formatCellValue(sheet.getRow(i).getCell(1)).contains(expectedTestName)) {
-				sheet.getRow(i).getCell(4).setCellValue(status);
+				sheet.getRow(i).createCell(4).setCellValue(status);
 			}
 		}
 		FileOutputStream fos = null;
