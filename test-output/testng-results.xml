@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-02-09T17:45:50 IST" name="Default suite" finished-at="2023-02-09T17:46:26 IST" duration-ms="35898">
+  <suite started-at="2023-02-12T21:27:38 IST" name="Default suite" finished-at="2023-02-12T21:28:04 IST" duration-ms="26094">
     <groups>
     </groups>
-    <test started-at="2023-02-09T17:45:50 IST" name="Default test" finished-at="2023-02-09T17:46:26 IST" duration-ms="35898">
-      <class name="testngImplementation.CreateContactsTest">
-        <test-method is-config="true" signature="classSetup()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:45:50 IST" name="classSetup" finished-at="2023-02-09T17:45:51 IST" duration-ms="1321" status="PASS">
+    <test started-at="2023-02-12T21:27:38 IST" name="Default test" finished-at="2023-02-12T21:28:04 IST" duration-ms="26094">
+      <class name="testngImplementation.CreateOrganizationWithIndustryAndTypeTest">
+        <test-method is-config="true" signature="classSetup()[pri:0, instance:testngImplementation.CreateOrganizationWithIndustryAndTypeTest@3a44431a]" started-at="2023-02-12T21:27:38 IST" name="classSetup" finished-at="2023-02-12T21:27:39 IST" duration-ms="686" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classSetup -->
-        <test-method is-config="true" signature="methodSetup()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:45:51 IST" name="methodSetup" finished-at="2023-02-09T17:46:02 IST" duration-ms="10389" status="PASS">
+        <test-method is-config="true" signature="methodSetup()[pri:0, instance:testngImplementation.CreateOrganizationWithIndustryAndTypeTest@3a44431a]" started-at="2023-02-12T21:27:39 IST" name="methodSetup" finished-at="2023-02-12T21:27:46 IST" duration-ms="6964" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodSetup -->
-        <test-method signature="createContactTest()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:02 IST" name="createContactTest" finished-at="2023-02-09T17:46:23 IST" duration-ms="21114" status="FAIL">
+        <test-method signature="createOrganizationWithIndustryAndTypeTest()[pri:0, instance:testngImplementation.CreateOrganizationWithIndustryAndTypeTest@3a44431a]" started-at="2023-02-12T21:27:46 IST" name="createOrganizationWithIndustryAndTypeTest" finished-at="2023-02-12T21:28:02 IST" duration-ms="15885" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[The following asserts failed:
@@ -26,7 +26,7 @@ expected [true] but found [false]]]>
 expected [true] but found [false]
 at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
 at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-at testngImplementation.CreateContactsTest.createContactTest(CreateContactsTest.java:36)
+at testngImplementation.CreateOrganizationWithIndustryAndTypeTest.createOrganizationWithIndustryAndTypeTest(CreateOrganizationWithIndustryAndTypeTest.java:40)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -60,16 +60,16 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- createContactTest -->
-        <test-method is-config="true" signature="methodTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:23 IST" name="methodTeardown" finished-at="2023-02-09T17:46:26 IST" duration-ms="3000" status="PASS">
+        </test-method> <!-- createOrganizationWithIndustryAndTypeTest -->
+        <test-method is-config="true" signature="methodTeardown()[pri:0, instance:testngImplementation.CreateOrganizationWithIndustryAndTypeTest@3a44431a]" started-at="2023-02-12T21:28:02 IST" name="methodTeardown" finished-at="2023-02-12T21:28:04 IST" duration-ms="2517" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodTeardown -->
-        <test-method is-config="true" signature="classTeardown()[pri:0, instance:testngImplementation.CreateContactsTest@3a44431a]" started-at="2023-02-09T17:46:26 IST" name="classTeardown" finished-at="2023-02-09T17:46:26 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="classTeardown()[pri:0, instance:testngImplementation.CreateOrganizationWithIndustryAndTypeTest@3a44431a]" started-at="2023-02-12T21:28:04 IST" name="classTeardown" finished-at="2023-02-12T21:28:04 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- classTeardown -->
-      </class> <!-- testngImplementation.CreateContactsTest -->
+      </class> <!-- testngImplementation.CreateOrganizationWithIndustryAndTypeTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

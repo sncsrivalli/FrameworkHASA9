@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testngImplementation.CreateContactsTest">
+      <class name="testngImplementation.CreateOrganizationWithIndustryAndTypeTest">
         <methods>
+          <include name="createOrganizationWithIndustryAndTypeTest"/>
           <include name="methodSetup"/>
           <include name="classSetup"/>
-          <include name="createContactTest"/>
           <include name="methodTeardown"/>
           <include name="classTeardown"/>
         </methods>
-      </class> <!-- testngImplementation.CreateContactsTest -->
+      </class> <!-- testngImplementation.CreateOrganizationWithIndustryAndTypeTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
