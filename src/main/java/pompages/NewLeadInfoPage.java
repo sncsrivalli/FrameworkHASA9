@@ -7,27 +7,29 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * This class contains all the elements, locators and respective business
- * libraries of New Contact Info page
+ * libraries of New Lead Info page
  * 
  * @author QPS-Basavanagudi
  *
  */
-public class NewContactInfoPage {
+public class NewLeadInfoPage {
 
 	// Declaration
 	@FindBy(xpath = "//span[@class='dvHeaderText']")
 	private WebElement pageHeader;
+	@FindBy(name = "Duplicate")
+	private WebElement duplicateButton;
 	@FindBy(xpath = "//a[@class='hdrLink']")
-	private WebElement contactsLink;
+	private WebElement leadsLink;
 
 	// Initialization
-	public NewContactInfoPage(WebDriver driver) {
-			PageFactory.initElements(driver, this);
-		}
+	public NewLeadInfoPage(WebDriver driver) {
+				PageFactory.initElements(driver, this);
+			}
 
 	// Utilization
 	/**
-	 * This method is used to fetch the new contact info page header
+	 * This method is used to fetch the new lead info page header
 	 * 
 	 * @return
 	 */
@@ -36,10 +38,17 @@ public class NewContactInfoPage {
 	}
 
 	/**
+	 * This method is used to click duplicate button
+	 */
+	public void clickDuplicateButton() {
+		duplicateButton.click();
+	}
+	
+	/**
 	 * This method is used to click on organizations link
 	 */
-	public void clickContactsLink() {
-		contactsLink.click();
+	public void clickLeadsLink() {
+		leadsLink.click();
 	}
 
 }

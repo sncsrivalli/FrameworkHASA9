@@ -25,6 +25,11 @@ public class HomePage {
 	private WebElement signOutButton;
 	@FindBy(xpath = "//a[text()='Contacts']")
 	private WebElement contactsTab;
+	@FindBy(xpath = "//a[.='Leads']")
+	private WebElement leadsTab;
+	@FindBy(id = "qccombo")
+	private WebElement quickCreateDropdown;
+	
 
 	// Initialization
 	public HomePage(WebDriver driver) {
@@ -46,6 +51,21 @@ public class HomePage {
 		contactsTab.click();
 	}
 
+	/**
+	 * This method is used to select required element from quick create drop down
+	 * @param web
+	 * @param value
+	 */
+	public void selectFromQuickCreateDropdown(WebDriverUtility web, String value) {
+		web.dropdown(value, quickCreateDropdown);
+	}
+	
+	/**
+	 * This method is used to click leads tab
+	 */
+	public void clickLeadsTab() {
+		leadsTab.click();
+	}
 	/**
 	 * This method is used to sign out of the application
 	 * 

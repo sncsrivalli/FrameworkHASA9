@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -270,6 +271,17 @@ public class WebDriverUtility {
 	public void scrollTillElement(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", element);
+	}
+	
+	/**
+	 * This method is used to convert dynamic xpath to web element
+	 * @param dynamicPath
+	 * @param replaceData
+	 * @return
+	 */
+	public WebElement convertDynamicXpathToWebElement(String dynamicPath, String replaceData) {
+		String requiredPath = String.format(dynamicPath, replaceData);
+		return driver.findElement(By.xpath(requiredPath));
 	}
 	
 	/**

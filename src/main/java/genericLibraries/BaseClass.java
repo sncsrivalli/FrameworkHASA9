@@ -9,9 +9,18 @@ import org.testng.annotations.BeforeMethod;
 
 import pompages.ContactsPage;
 import pompages.CreateContactPage;
+import pompages.CreateLeadPage;
+import pompages.CreateOrganizationPage;
+import pompages.CreateToDoPage;
+import pompages.DuplicatingLeadPage;
+import pompages.EventInfoPage;
 import pompages.HomePage;
+import pompages.LeadsPage;
 import pompages.LoginPage;
 import pompages.NewContactInfoPage;
+import pompages.NewLeadInfoPage;
+import pompages.NewOrganizationInfoPage;
+import pompages.OrganizationsPage;
 
 public class BaseClass {
 	protected ExcelUtility excel;
@@ -26,6 +35,16 @@ public class BaseClass {
 	protected NewContactInfoPage newContact;
 	public static JavaUtility sjavaUtil;
 	public static WebDriver sdriver;
+	protected LeadsPage leads;
+	protected CreateLeadPage createLead;
+	protected NewLeadInfoPage newLeadInfo;
+	protected DuplicatingLeadPage duplicatingPage;
+	protected CreateToDoPage createToDo;
+	protected EventInfoPage eventInfo;
+	protected OrganizationsPage organizations;
+	protected CreateOrganizationPage createOrganization;
+	protected NewOrganizationInfoPage newOrganization;
+	
 	
 	//@BeforeSuite
 	//@BeforeTest
@@ -57,6 +76,16 @@ public class BaseClass {
 		contacts = new ContactsPage(driver);
 		createContact = new CreateContactPage(driver);
 		newContact = new NewContactInfoPage(driver);	
+		leads = new LeadsPage(driver);
+		createLead = new CreateLeadPage(driver);
+		newLeadInfo = new NewLeadInfoPage(driver);
+		duplicatingPage = new DuplicatingLeadPage(driver);
+		createToDo = new CreateToDoPage(driver);
+		eventInfo = new EventInfoPage(driver);
+		organizations = new OrganizationsPage(driver);
+		createOrganization = new CreateOrganizationPage(driver);
+		newOrganization = new NewOrganizationInfoPage(driver);
+		
 	}
 	
 	@AfterMethod
