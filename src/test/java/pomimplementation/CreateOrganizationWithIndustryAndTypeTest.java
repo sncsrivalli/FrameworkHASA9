@@ -8,6 +8,7 @@ import genericLibraries.ExcelUtility;
 import genericLibraries.IConstantPath;
 import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
+import genericLibraries.TabNames;
 import genericLibraries.WebDriverUtility;
 import pompages.CreateOrganizationPage;
 import pompages.HomePage;
@@ -47,7 +48,8 @@ public class CreateOrganizationWithIndustryAndTypeTest {
 		else
 			System.out.println("Home page not found");
 		
-		home.clickOrganization();
+		//home.clickOrganization();
+		home.clickRequiredTab(web, TabNames.ORGANIZATIONS);
 		
 		if(driver.getTitle().contains("Organizations"))
 			System.out.println("Organizations page displayed");
@@ -85,7 +87,7 @@ public class CreateOrganizationWithIndustryAndTypeTest {
 			excel.setDataToExcel("Create Organization With Industry And Type", "Fail", IConstantPath.EXCEL_FILE_PATH, "OrganizationsTestData");
 		}
 		
-		home.signOutOfApp(web);
+		home.signOutOfApp(web, home);
 		web.closeWindows();
 		excel.closeWorkbook();
 	}

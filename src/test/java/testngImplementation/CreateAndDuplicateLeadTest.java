@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 
 import genericLibraries.BaseClass;
 import genericLibraries.IConstantPath;
+import genericLibraries.TabNames;
 
 public class CreateAndDuplicateLeadTest extends BaseClass{
 
@@ -14,7 +15,8 @@ public class CreateAndDuplicateLeadTest extends BaseClass{
 	public void createAndDuplicateLeadTest() {
 		SoftAssert soft = new SoftAssert();
 		
-		home.clickLeadsTab();
+		//home.clickLeadsTab();
+		home.clickRequiredTab(web, TabNames.LEADS);
 		soft.assertTrue(driver.getTitle().contains("Leads"));	
 		
 		leads.clickPlusButton();

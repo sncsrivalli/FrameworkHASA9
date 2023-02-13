@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 
 import genericLibraries.BaseClass;
 import genericLibraries.IConstantPath;
+import genericLibraries.TabNames;
 
 public class CreateOrganizationTest extends BaseClass{
 
@@ -14,7 +15,8 @@ public class CreateOrganizationTest extends BaseClass{
 	public void createOrganizationTest() {
 		SoftAssert soft = new SoftAssert();
 		
-		home.clickOrganization();
+		//home.clickOrganization();
+		home.clickRequiredTab(web, TabNames.ORGANIZATIONS);
 		soft.assertTrue(driver.getTitle().contains("Organizations"));
 		
 		organizations.clickPlusButton();

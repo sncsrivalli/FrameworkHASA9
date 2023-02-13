@@ -90,7 +90,7 @@ public class BaseClass {
 	
 	@AfterMethod
 	public void methodTeardown() {
-		home.signOutOfApp(web);
+		home.signOutOfApp(web, home);
 		web.closeWindows();
 	}
 	

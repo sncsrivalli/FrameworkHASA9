@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import genericLibraries.TabNames;
 import genericLibraries.WebDriverUtility;
 
 /**
@@ -17,16 +18,19 @@ import genericLibraries.WebDriverUtility;
 public class HomePage {
 
 	// Declaration
-	@FindBy(xpath = "//a[text()='Organizations']")
-	private WebElement organizationsTab;
+	
+	private String dynamicXpathTabs = "//a[text()='%s']";
+	
+//	@FindBy(xpath = "//a[text()='Organizations']")
+//	private WebElement organizationsTab;
 	@FindBy(xpath = "//img[@src='themes/softed/images/user.PNG']")
 	private WebElement administratorIcon;
-	@FindBy(xpath = "//a[text()='Sign Out']")
-	private WebElement signOutButton;
-	@FindBy(xpath = "//a[text()='Contacts']")
-	private WebElement contactsTab;
-	@FindBy(xpath = "//a[.='Leads']")
-	private WebElement leadsTab;
+//	@FindBy(xpath = "//a[text()='Sign Out']")
+//	private WebElement signOutButton;
+//	@FindBy(xpath = "//a[text()='Contacts']")
+//	private WebElement contactsTab;
+//	@FindBy(xpath = "//a[.='Leads']")
+//	private WebElement leadsTab;
 	@FindBy(id = "qccombo")
 	private WebElement quickCreateDropdown;
 	
@@ -37,19 +41,28 @@ public class HomePage {
 	}
 
 	// Utilization
-	/**
-	 * This method is used to click organizations tab
-	 */
-	public void clickOrganization() {
-		organizationsTab.click();
-	}
 	
 	/**
-	 * This method is used to click contacts tab
+	 * This method is used to click required tab name
+	 * @param web
+	 * @param tab
 	 */
-	public void clickContact() {
-		contactsTab.click();
+	public void clickRequiredTab(WebDriverUtility web, TabNames tab) {
+		web.convertDynamicXpathToWebElement(dynamicXpathTabs, tab.getTabname()).click();
 	}
+//	/**
+//	 * This method is used to click organizations tab
+//	 */
+//	public void clickOrganization() {
+//		organizationsTab.click();
+//	}
+//	
+//	/**
+//	 * This method is used to click contacts tab
+//	 */
+//	public void clickContact() {
+//		contactsTab.click();
+//	}
 
 	/**
 	 * This method is used to select required element from quick create drop down
@@ -60,19 +73,19 @@ public class HomePage {
 		web.dropdown(value, quickCreateDropdown);
 	}
 	
-	/**
-	 * This method is used to click leads tab
-	 */
-	public void clickLeadsTab() {
-		leadsTab.click();
-	}
+//	/**
+//	 * This method is used to click leads tab
+//	 */
+//	public void clickLeadsTab() {
+//		leadsTab.click();
+//	}
 	/**
 	 * This method is used to sign out of the application
 	 * 
 	 * @param web
 	 */
-	public void signOutOfApp(WebDriverUtility web) {
-		web.mouseHover(administratorIcon);
-		signOutButton.click();
+	public void signOutOfApp(WebDriverUtility web, HomePage home) {
+		web.mouseHover(administratorIcon);	
+		home.clickRequiredTab(web, TabNames.SIGNOUT);
 	}
 }

@@ -8,6 +8,7 @@ import genericLibraries.ExcelUtility;
 import genericLibraries.IConstantPath;
 import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
+import genericLibraries.TabNames;
 import genericLibraries.WebDriverUtility;
 import pompages.CreateLeadPage;
 import pompages.DuplicatingLeadPage;
@@ -49,7 +50,7 @@ public class CreateAndDuplicateLeadTest {
 		else
 			System.out.println("Home Page is not displayed");
 		
-		home.clickLeadsTab();
+		home.clickRequiredTab(web, TabNames.LEADS);
 			
 		if (driver.getTitle().contains("Leads"))
 			System.out.println("Pass");
@@ -98,7 +99,7 @@ public class CreateAndDuplicateLeadTest {
 			excel.setDataToExcel("Create and Duplicate Lead", "Fail", IConstantPath.EXCEL_FILE_PATH, "LeadsTestData");
 		}
 
-		home.signOutOfApp(web);
+		home.signOutOfApp(web, home);
 		web.closeWindows();
 		excel.closeWorkbook();
 	}

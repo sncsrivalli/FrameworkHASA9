@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 
 import genericLibraries.BaseClass;
 import genericLibraries.IConstantPath;
+import genericLibraries.TabNames;
 
 public class CreateContactsTest extends BaseClass {
 
@@ -14,7 +15,8 @@ public class CreateContactsTest extends BaseClass {
 	public void createContactTest() {
 		SoftAssert soft = new SoftAssert();
 		
-		home.clickContact();
+		//home.clickContact();
+		home.clickRequiredTab(web, TabNames.CONTACTS);
 		
 		soft.assertTrue(driver.getTitle().contains("Contacts"));
 		contacts.clickPlusButton();

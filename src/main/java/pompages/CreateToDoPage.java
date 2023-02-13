@@ -24,9 +24,6 @@ public class CreateToDoPage {
 	private WebElement subjectTF;
 	@FindBy(id = "jscal_trigger_date_start")
 	private WebElement startDateCalendarIcon;
-	
-	//xpath(
-		//	"//div[@class='calendar' and contains(@style,'block')]/descendant::td[.='" + requiredDate + "']"
 	@FindBy(id = "jscal_field_due_date")
 	private WebElement dueDateTF;
 	@FindBy(xpath = "//input[@value='  Save']")

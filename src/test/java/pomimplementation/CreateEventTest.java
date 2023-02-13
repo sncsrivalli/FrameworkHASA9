@@ -67,7 +67,7 @@ public class CreateEventTest {
 			excel.setDataToExcel("Create New Event", "Fail", IConstantPath.EXCEL_FILE_PATH, "EventsTestData");
 		}
 
-		home.signOutOfApp(web);
+		home.signOutOfApp(web, home);
 		web.closeWindows();
 		excel.closeWorkbook();
 

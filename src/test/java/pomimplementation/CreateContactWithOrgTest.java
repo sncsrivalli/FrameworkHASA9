@@ -8,6 +8,7 @@ import genericLibraries.ExcelUtility;
 import genericLibraries.IConstantPath;
 import genericLibraries.JavaUtility;
 import genericLibraries.PropertiesFileUtility;
+import genericLibraries.TabNames;
 import genericLibraries.WebDriverUtility;
 import pompages.ContactsPage;
 import pompages.CreateContactPage;
@@ -47,7 +48,8 @@ public class CreateContactWithOrgTest {
 		else
 			System.out.println("Home page not found");
 		
-		home.clickContact();
+		//home.clickContact();
+		home.clickRequiredTab(web, TabNames.CONTACTS);
 		
 		if(driver.getTitle().contains("Contacts"))
 			System.out.println("Contacts page displayed");
@@ -83,7 +85,7 @@ public class CreateContactWithOrgTest {
 			excel.setDataToExcel("Create Contact With Organization", "Fail", IConstantPath.EXCEL_FILE_PATH, "ContactsTestData");
 		}
 
-		home.signOutOfApp(web);
+		home.signOutOfApp(web, home);
 		web.closeWindows();
 		excel.closeWorkbook();
 	}
