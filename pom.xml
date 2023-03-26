@@ -19,7 +19,7 @@
 				<version>3.0.0-M8</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>contactsTest.xml</suiteXmlFile>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
