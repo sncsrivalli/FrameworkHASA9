@@ -8,7 +8,7 @@ import org.testng.asserts.SoftAssert;
 import genericLibraries.BaseClass;
 import genericLibraries.IConstantPath;
 import genericLibraries.TabNames;
-
+//Create and duplicate lead
 public class CreateAndDuplicateLeadTest extends BaseClass{
 
 	@Test
